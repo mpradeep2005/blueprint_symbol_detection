@@ -1,8 +1,9 @@
 import { useMemo } from 'react'
 import { getColorForLabel } from '../utils/drawBoxes'
 
-export default function StatsPanel({ detections = [] }) {
+export default function StatsPanel({ detections = [], selectedClass, onSelectClass }) {
     const stats = useMemo(() => {
+        // ... (existing memo logic)
         if (!detections || detections.length === 0) {
             return {
                 total: 0,
@@ -32,9 +33,15 @@ export default function StatsPanel({ detections = [] }) {
             <h2 className="text-2xl font-bold gradient-text">Detection Statistics</h2>
 
             {/* Total Detections */}
-            <div className="glass-card p-4 border-primary-500/30">
+            <div
+                className={`glass-card p-4 border-primary-500/30 cursor-pointer transition-colors ${!selectedClass ? 'bg-primary-500/20 ring-1 ring-primary-500' : 'hover:bg-white/5'}`}
+                onClick={() => onSelectClass && onSelectClass(null)}
+            >
                 <p className="text-sm text-gray-400 mb-1">Total Detections</p>
-                <p className="text-4xl font-bold text-white">{stats.total}</p>
+                <div className="flex justify-between items-end">
+                    <p className="text-4xl font-bold text-white">{stats.total}</p>
+                    {!selectedClass && <span className="text-xs text-primary-400">Showing All</span>}
+                </div>
             </div>
 
             {/* Average Confidence */}
@@ -47,14 +54,22 @@ export default function StatsPanel({ detections = [] }) {
 
             {/* Detections by Type */}
             <div>
-                <h3 className="text-lg font-semibold text-white mb-4">By Element Type</h3>
+                <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-white">By Element Type</h3>
+                    <span className="text-xs text-gray-400">Click to filter</span>
+                </div>
                 <div className="space-y-3">
                     {Object.entries(stats.byType).map(([label, count]) => {
                         const color = getColorForLabel(label)
                         const percentage = (count / stats.total) * 100
+                        const isSelected = selectedClass && selectedClass.toLowerCase() === label.toLowerCase()
 
                         return (
-                            <div key={label} className="space-y-2">
+                            <div
+                                key={label}
+                                className={`space-y-2 p-3 -mx-3 rounded-xl cursor-pointer transition-all duration-200 ${isSelected ? 'bg-white/10 ring-1 ring-white/20' : 'hover:bg-white/5'}`}
+                                onClick={() => onSelectClass && onSelectClass(isSelected ? null : label)}
+                            >
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center gap-2">
                                         <div
@@ -82,19 +97,31 @@ export default function StatsPanel({ detections = [] }) {
                 </div>
             </div>
 
-            {/* Legend */}
+            {/* Detailed Detections List */}
             <div className="pt-4 border-t border-white/10">
-                <h3 className="text-sm font-semibold text-gray-400 mb-3">Color Legend</h3>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                    {['wall', 'door', 'window', 'room'].map(label => (
-                        <div key={label} className="flex items-center gap-2">
-                            <div
-                                className="w-3 h-3 rounded-full"
-                                style={{ backgroundColor: getColorForLabel(label) }}
-                            />
-                            <span className="text-gray-300 capitalize">{label}</span>
+                <h3 className="text-lg font-semibold text-white mb-4">All Detections</h3>
+                <div className="max-h-[300px] overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+                    {detections.map((det, index) => (
+                        <div key={index} className="flex justify-between items-center p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors">
+                            <div className="flex items-center gap-3">
+                                <div
+                                    className="w-2 h-2 rounded-full"
+                                    style={{ backgroundColor: getColorForLabel(det.label) }}
+                                />
+                                <span className="text-gray-300 capitalize text-sm">
+                                    {det.label}
+                                </span>
+                            </div>
+                            <span className="text-sm font-mono text-primary-400">
+                                {(det.confidence * 100).toFixed(0)}%
+                            </span>
                         </div>
                     ))}
+                    {detections.length === 0 && (
+                        <p className="text-gray-500 text-sm text-center py-4">
+                            No detections found
+                        </p>
+                    )}
                 </div>
             </div>
         </div>

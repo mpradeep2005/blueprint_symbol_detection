@@ -13,9 +13,15 @@ export default function Dashboard() {
     const [error, setError] = useState(null)
     const [imageData, setImageData] = useState(null)
     const [detections, setDetections] = useState([])
+    const [selectedClass, setSelectedClass] = useState(null)
 
     // Mock data for demonstration when no backend is available
     const useMockData = !id
+
+    // Filter detections based on selected class
+    const filteredDetections = selectedClass
+        ? detections.filter(d => d.label.toLowerCase() === selectedClass.toLowerCase())
+        : detections
 
     useEffect(() => {
         if (useMockData) {
@@ -129,7 +135,11 @@ export default function Dashboard() {
 
                             {/* Sidebar */}
                             <div className="space-y-6">
-                                <StatsPanel detections={detections} />
+                                <StatsPanel
+                                    detections={detections}
+                                    selectedClass={selectedClass}
+                                    onSelectClass={setSelectedClass}
+                                />
                                 <ExportPanel detections={detections} blueprintId="demo" />
                             </div>
                         </div>
@@ -166,20 +176,26 @@ export default function Dashboard() {
                         <div className="h-full grid lg:grid-cols-[1fr,350px] gap-6">
                             {/* Blueprint Viewer with Overlay */}
                             <div className="glass-card p-6 flex flex-col min-h-[600px]">
-                                <h2 className="text-2xl font-bold text-white mb-4">Blueprint View</h2>
+                                <h2 className="text-2xl font-bold text-white mb-4">
+                                    {selectedClass ? `${selectedClass.charAt(0).toUpperCase() + selectedClass.slice(1)} View` : 'Full Blueprint View'}
+                                </h2>
                                 <div className="flex-1 relative">
                                     <BlueprintViewer
                                         imageUrl={`http://localhost:8000/blueprints/${id}`}
-                                        detections={detections}
+                                        detections={filteredDetections}
                                         onCanvasReady={handleCanvasReady}
                                     />
-                                    <DetectionOverlay imageData={imageData} detections={detections} />
+                                    <DetectionOverlay imageData={imageData} detections={filteredDetections} />
                                 </div>
                             </div>
 
                             {/* Sidebar */}
                             <div className="space-y-6">
-                                <StatsPanel detections={detections} />
+                                <StatsPanel
+                                    detections={detections}
+                                    selectedClass={selectedClass}
+                                    onSelectClass={setSelectedClass}
+                                />
                                 <ExportPanel detections={detections} blueprintId={id} />
                             </div>
                         </div>
