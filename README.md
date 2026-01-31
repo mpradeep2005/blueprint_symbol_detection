@@ -1,196 +1,196 @@
-# \# Blueprint Detection \& Analysis System
+##### \# Blueprint Detection \& Analysis System
 
-# 
+##### 
 
-# This project focuses on building a practical, full-stack system to automatically understand and analyze architectural blueprints. Instead of manually inspecting drawings, users can upload a blueprint image and get clear visual detections and simple analytical insights through a web interface.
+##### This project focuses on building a practical, full-stack system to automatically understand and analyze architectural blueprints. Instead of manually inspecting drawings, users can upload a blueprint image and get clear visual detections and simple analytical insights through a web interface.
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## What the Project Does
+##### \## What the Project Does
 
-# 
+##### 
 
-# \* Accepts blueprint images in common formats (JPG / PNG)
+##### \* Accepts blueprint images in common formats (JPG / PNG)
 
-# \* Identifies key structural elements such as walls, doors, windows, and rooms
+##### \* Identifies key structural elements such as walls, doors, windows, and rooms
 
-# \* Displays detections directly on the blueprint for easy understanding
+##### \* Displays detections directly on the blueprint for easy understanding
 
-# \* Provides confidence scores and a short analytical summary
+##### \* Provides confidence scores and a short analytical summary
 
-# \* Allows results to be exported for further use
+##### \* Allows results to be exported for further use
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## Overall Architecture
+##### \## Overall Architecture
 
-# 
+##### 
 
-# The system is designed in a simple layered manner so each part has a clear responsibility.
+##### The system is designed in a simple layered manner so each part has a clear responsibility.
 
-# 
+##### 
 
-# ```
+##### ```
 
-# User
+##### User
 
-# &nbsp; ↓
+##### &nbsp; ↓
 
-# Frontend (React)
+##### Frontend (React)
 
-# &nbsp; ↓
+##### &nbsp; ↓
 
-# Backend API (FastAPI)
+##### Backend API (FastAPI)
 
-# &nbsp; ↓
+##### &nbsp; ↓
 
-# Deep Learning Model (YOLO)
+##### Deep Learning Model (YOLO)
 
-# &nbsp; ↓
+##### &nbsp; ↓
 
-# Post-Processing \& Storage
+##### Post-Processing \& Storage
 
-# ```
+##### ```
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## Technology Used
+##### \## Technology Used
 
-# 
+##### 
 
-# \* \*\*Frontend:\*\* React, Tailwind CSS, HTML Canvas for drawing detections
+##### \* \*\*Frontend:\*\* React, Tailwind CSS, HTML Canvas for drawing detections
 
-# \* \*\*Backend:\*\* FastAPI (Python) for handling requests and model execution
+##### \* \*\*Backend:\*\* FastAPI (Python) for handling requests and model execution
 
-# \* \*\*AI Model:\*\* YOLOv8 with OpenCV and PyTorch
+##### \* \*\*AI Model:\*\* YOLOv8 with OpenCV and PyTorch
 
-# \* \*\*Storage:\*\* Local file system with JSON result files
+##### \* \*\*Storage:\*\* Local file system with JSON result files
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## How the System Works
+##### \## How the System Works
 
-# 
+##### 
 
-# 1\. The user uploads a blueprint image from the browser
+##### 1\. The user uploads a blueprint image from the browser
 
-# 2\. The backend receives the image and runs the detection model
+##### 2\. The backend receives the image and runs the detection model
 
-# 3\. Raw model outputs are filtered and structured during post-processing
+##### 3\. Raw model outputs are filtered and structured during post-processing
 
-# 4\. The processed results are sent back as JSON
+##### 4\. The processed results are sent back as JSON
 
-# 5\. The frontend visualizes detections and basic analytics
+##### 5\. The frontend visualizes detections and basic analytics
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## API Endpoints
+##### \## API Endpoints
 
-# 
+##### 
 
-# | Method | Endpoint        | Purpose                    |
+##### | Method | Endpoint        | Purpose                    |
 
-# | ------ | --------------- | -------------------------- |
+##### | ------ | --------------- | -------------------------- |
 
-# | POST   | `/upload`       | Upload a blueprint image   |
+##### | POST   | `/upload`       | Upload a blueprint image   |
 
-# | POST   | `/detect/{id}`  | Run detection on the image |
+##### | POST   | `/detect/{id}`  | Run detection on the image |
 
-# | GET    | `/results/{id}` | Retrieve detection results |
+##### | GET    | `/results/{id}` | Retrieve detection results |
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## Quick Setup
+##### \## Quick Setup
 
-# 
+##### 
 
-# ```bash
+##### ```bash
 
-# \# Backend
+##### \# Backend
 
-# pip install -r requirements.txt
+##### pip install -r requirements.txt
 
-# uvicorn app.main:app --reload
+##### uvicorn app.main:app --reload
 
-# 
+##### 
 
-# \# Frontend
+##### \# Frontend
 
-# npm install
+##### npm install
 
-# npm run dev
+##### npm run dev
 
-# ```
+##### ```
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## Example Output
+##### \## Example Output
 
-# 
+##### 
 
-# ```json
+##### ```json
 
-# { "label": "door", "confidence": 0.94, "bbox": \[120, 80, 60, 90] }
+##### { "label": "door", "confidence": 0.94, "bbox": \[120, 80, 60, 90] }
 
-# ```
+##### ```
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## Where This Can Be Used
+##### \## Where This Can Be Used
 
-# 
+##### 
 
-# \* Construction planning and validation
+##### \* Construction planning and validation
 
-# \* Real-estate floor plan analysis
+##### \* Real-estate floor plan analysis
 
-# \* Digitizing old architectural drawings
+##### \* Digitizing old architectural drawings
 
-# 
+##### 
 
-# 
+##### 
 
-# ---
+##### ---
 
-# 
+##### 
 
-# \## License
+##### \## License
 
-# 
+##### 
 
-# MIT L
+##### MIT L
 
-
+##### 
 
