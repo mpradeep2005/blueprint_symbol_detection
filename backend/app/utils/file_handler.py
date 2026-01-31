@@ -3,7 +3,7 @@ import shutil
 from pathlib import Path
 from typing import Optional
 from fastapi import UploadFile
-from app.core.config import settings
+from core.config import settings
 
 def generate_unique_id() -> str:
     """Generate a unique ID for blueprints"""

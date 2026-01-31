@@ -1,8 +1,8 @@
 import json
 from pathlib import Path
 from typing import List, Dict
-from app.schemas.response import Detection
-from app.utils.file_handler import get_results_path
+from schemas.response import Detection
+from utils.file_handler import get_results_path
 
 def filter_detections(
     detections: List[Dict],

@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Optional, List, Dict
 from ultralytics import YOLO
 import numpy as np
-from app.core.config import settings
+from core.config import settings
 
 class BlueprintDetector:
     """YOLO model wrapper for blueprint symbol detection"""
