@@ -2,21 +2,21 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 from pathlib import Path
 
-from app.schemas.response import (
+from schemas.response import (
     UploadResponse,
     DetectionResponse,
     ResultsResponse,
     ErrorResponse
 )
-from app.utils.file_handler import (
+from utils.file_handler import (
     generate_unique_id,
     validate_file_extension,
     save_upload_file,
     get_blueprint_path
 )
-from app.services.inference import run_inference, get_detection_statistics
-from app.services.postprocess import process_and_save_results, load_results
-from app.core.config import settings
+from services.inference import run_inference, get_detection_statistics
+from services.postprocess import process_and_save_results, load_results
+from core.config import settings
 
 router = APIRouter()
 

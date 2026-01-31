@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import List, Dict
-from app.models.detector import detector
-from app.core.config import settings
+from models.detector import detector
+from core.config import settings
 
 def run_inference(image_path: Path) -> List[Dict]:
     """
