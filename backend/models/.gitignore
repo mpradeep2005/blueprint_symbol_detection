@@ -1,0 +1,11 @@
+# Models directory - place your YOLO model here
+# Name your trained YOLOv8 model as "best.pt"
+# Or update the MODEL_PATH in app/core/config.py
+
+*.pt
+*.pth
+*.onnx
+*.weights
+
+# Readme
+README.md

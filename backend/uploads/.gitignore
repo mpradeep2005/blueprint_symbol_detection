@@ -1,0 +1,4 @@
+# Uploads directory - stores uploaded blueprint images
+*.jpg
+*.jpeg
+*.png

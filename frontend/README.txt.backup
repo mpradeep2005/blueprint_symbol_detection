@@ -1,0 +1,23 @@
+frontend/
+ ├── public/
+ ├── src/
+ │   ├── components/
+ │   │   ├── UploadZone.jsx
+ │   │   ├── BlueprintViewer.jsx
+ │   │   ├── DetectionOverlay.jsx
+ │   │   ├── StatsPanel.jsx
+ │   │   └── ExportPanel.jsx
+ │   │
+ │   ├── pages/
+ │   │   ├── Home.jsx
+ │   │   └── Dashboard.jsx
+ │   │
+ │   ├── services/
+ │   │   └── api.js
+ │   │
+ │   ├── utils/
+ │   │   └── drawBoxes.js
+ │   │
+ │   ├── App.jsx
+ │   └── main.jsx
+ └── package.json
