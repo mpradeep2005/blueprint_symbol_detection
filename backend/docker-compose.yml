@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount uploads and results directories for persistence
+      - ./uploads:/code/uploads
+      - ./results:/code/results
+      - ./models:/code/models
+    environment:
+      - DEBUG=False
+      - HOST=0.0.0.0
+      - PORT=8000
+    restart: unless-stopped

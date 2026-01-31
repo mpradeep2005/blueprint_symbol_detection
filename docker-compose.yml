@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # Backend API Service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: blueprint-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Mount directories for persistence
+      - ./backend/uploads:/code/uploads
+      - ./backend/results:/code/results
+      - ./backend/models:/code/models
+    environment:
+      - DEBUG=False
+      - HOST=0.0.0.0
+      - PORT=8000
+    networks:
+      - blueprint-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: blueprint-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - blueprint-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  blueprint-network:
+    driver: bridge
